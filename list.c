@@ -89,6 +89,15 @@ Status add_unique(List_ptr list, int value)
   return Success;
 }
 
+Status remove_from_start(List_ptr list)
+{
+  Node_ptr temp = list->head;
+  list->head = list->head->next;
+  list->count--;
+  free(temp);
+  return Success;
+}
+
 List_ptr create_list()
 {
   List_ptr new_list = malloc(sizeof(List));

@@ -65,6 +65,9 @@ void perform_required_operation(List_ptr list, char user_choice)
     number = read_input_values(&number);
     status = add_unique(list, number);
     break;
+  case 'e':
+    status = remove_from_start(list);
+    break;
   default:
     break;
   }
