@@ -1,5 +1,17 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "list.h"
+
+void display_list(List_ptr list)
+{
+  Node *p_walk = list->head;
+  while (p_walk != NULL)
+  {
+    printf("value is %d\n", p_walk->value);
+    p_walk = p_walk->next;
+  }
+  printf("total number of nodes are %d\n", list->count);
+}
 
 Node_ptr create_node(int value, Node_ptr next_reference)
 {

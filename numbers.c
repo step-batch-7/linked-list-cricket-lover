@@ -28,7 +28,7 @@ void show_main_menu()
 
 char take_user_choice(char user_choice)
 {
-  printf("Choose an option\n");
+  printf("Please enter the alphabet of the operation you would like to perform\n");
   scanf("%c", &user_choice);
   clear_buffer();
   return user_choice;
@@ -57,18 +57,6 @@ void perform_required_operation(List_ptr list, char user_choice, int number)
   }
 }
 
-void display_list(List_ptr list)
-{
-
-  Node *p_walk = list->head;
-  while (p_walk != NULL)
-  {
-    printf("value is %d\n", p_walk->value);
-    p_walk = p_walk->next;
-  }
-  printf("total number of nodes are %d\n", list->count);
-}
-
 int main(void)
 {
   List_ptr list = create_list();
@@ -80,6 +68,5 @@ int main(void)
     user_choice = take_user_choice(user_choice);
     perform_required_operation(list, user_choice, number);
   } while (user_choice != 'm');
-  display_list(list);
   return 0;
 }
