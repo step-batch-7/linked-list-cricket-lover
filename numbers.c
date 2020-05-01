@@ -26,12 +26,20 @@ void show_main_menu()
   printf("(m) exit\n\n");
 }
 
-char take_user_choice(char user_choice)
+char read_user_choice(char user_choice)
 {
   printf("Please enter the alphabet of the operation you would like to perform\n");
   scanf("%c", &user_choice);
   clear_buffer();
   return user_choice;
+}
+
+int read_input_values(int number)
+{
+  printf("Enter a number \n");
+  scanf("%d", &number);
+  clear_buffer();
+  return number;
 }
 
 void perform_required_operation(List_ptr list, char user_choice, int number)
@@ -40,15 +48,11 @@ void perform_required_operation(List_ptr list, char user_choice, int number)
   switch (user_choice)
   {
   case 'a':
-    printf("Enter a number \n");
-    scanf("%d", &number);
-    clear_buffer();
+    number = read_input_values(number);
     status = add_to_end(list, number);
     break;
   case 'b':
-    printf("Enter a number \n");
-    scanf("%d", &number);
-    clear_buffer();
+    number = read_input_values(number);
     status = add_to_start(list, number);
     break;
 
@@ -65,7 +69,7 @@ int main(void)
   do
   {
     show_main_menu();
-    user_choice = take_user_choice(user_choice);
+    user_choice = read_user_choice(user_choice);
     perform_required_operation(list, user_choice, number);
   } while (user_choice != 'm');
   return 0;
