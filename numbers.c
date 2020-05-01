@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "list.h"
 
 void clear_buffer()
 {
@@ -27,24 +28,39 @@ void show_main_menu()
 
 char take_user_choice(char user_choice)
 {
+  printf("Choose an option\n");
   scanf("%c", &user_choice);
+  clear_buffer();
   return user_choice;
 }
 
-void perform_required_operation(char user_choice, int number)
+void perform_required_operation(List_ptr list, char user_choice, int number)
 {
+  Status status;
+  switch (user_choice)
+  {
+  case 'a':
+    printf("Enter a number \n");
+    scanf("%d", &number);
+    clear_buffer();
+    status = add_to_end(list, number);
+    break;
+
+  default:
+    break;
+  }
 }
 
 int main(void)
 {
+  List_ptr list = create_list();
   char user_choice;
   int number;
   do
   {
     show_main_menu();
     user_choice = take_user_choice(user_choice);
-    clear_buffer();
-    perform_required_operation(user_choice, number);
+    perform_required_operation(list, user_choice, number);
   } while (user_choice != 'm');
   return 0;
 }
