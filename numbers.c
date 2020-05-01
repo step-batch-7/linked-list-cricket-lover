@@ -42,8 +42,9 @@ int read_input_values(Int_ptr number)
   return *number;
 }
 
-void perform_required_operation(List_ptr list, char user_choice, int number)
+void perform_required_operation(List_ptr list, char user_choice)
 {
+  int number, position;
   Status status;
   switch (user_choice)
   {
@@ -55,22 +56,27 @@ void perform_required_operation(List_ptr list, char user_choice, int number)
     number = read_input_values(&number);
     status = add_to_start(list, number);
     break;
+  case 'c':
+    number = read_input_values(&number);
+    position = read_input_values(&position);
+    status = insert_at(list, number, position);
+    break;
 
   default:
     break;
   }
+  display_list(list);
 }
 
 int main(void)
 {
   List_ptr list = create_list();
   char user_choice;
-  int number;
   do
   {
     show_main_menu();
     user_choice = read_user_choice(&user_choice);
-    perform_required_operation(list, user_choice, number);
+    perform_required_operation(list, user_choice);
   } while (user_choice != 'm');
   return 0;
 }

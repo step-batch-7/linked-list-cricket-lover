@@ -45,6 +45,26 @@ Status add_to_start(List_ptr list, int value)
   return Success;
 }
 
+Status insert_at(List_ptr list, int value, int position)
+{
+  if (position > list->count + 1 || position < 0)
+  {
+    return Failure;
+  }
+
+  Node *p_walk = list->head;
+  while (position <= 0)
+  {
+    p_walk = p_walk->next;
+    position--;
+  }
+
+  Node_ptr new_node = create_node(value, p_walk->next);
+  p_walk->next = new_node;
+  list->count++;
+  return Success;
+}
+
 List_ptr create_list()
 {
   List_ptr new_list = malloc(sizeof(List));
