@@ -23,6 +23,8 @@ typedef struct
 } List;
 
 typedef List *List_ptr;
+typedef char *Char_ptr;
+typedef int *Int_ptr;
 
 List_ptr create_list(void);
 Node_ptr create_node(int value, Node_ptr next_reference);
