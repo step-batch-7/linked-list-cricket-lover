@@ -65,7 +65,6 @@ void perform_required_operation(List_ptr list, char user_choice)
   default:
     break;
   }
-  display_list(list);
 }
 
 int main(void)
