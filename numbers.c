@@ -61,7 +61,10 @@ void perform_required_operation(List_ptr list, char user_choice)
     position = read_input_values(&position);
     status = insert_at(list, number, position);
     break;
-
+  case 'd':
+    number = read_input_values(&number);
+    status = add_unique(list, number);
+    break;
   default:
     break;
   }
