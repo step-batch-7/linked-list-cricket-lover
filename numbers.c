@@ -45,10 +45,28 @@ void perform_required_operation(List_ptr list, char user_choice, int number)
     clear_buffer();
     status = add_to_end(list, number);
     break;
+  case 'b':
+    printf("Enter a number \n");
+    scanf("%d", &number);
+    clear_buffer();
+    status = add_to_start(list, number);
+    break;
 
   default:
     break;
   }
+}
+
+void display_list(List_ptr list)
+{
+
+  Node *p_walk = list->head;
+  while (p_walk != NULL)
+  {
+    printf("value is %d\n", p_walk->value);
+    p_walk = p_walk->next;
+  }
+  printf("total number of nodes are %d\n", list->count);
 }
 
 int main(void)
@@ -62,5 +80,6 @@ int main(void)
     user_choice = take_user_choice(user_choice);
     perform_required_operation(list, user_choice, number);
   } while (user_choice != 'm');
+  display_list(list);
   return 0;
 }
