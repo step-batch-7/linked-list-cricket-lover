@@ -71,6 +71,10 @@ void perform_required_operation(List_ptr list, char user_choice)
   case 'f':
     status = remove_from_end(list);
     break;
+  case 'g':
+    position = read_input_values(&position);
+    status = remove_at(list, position);
+    break;
   default:
     break;
   }

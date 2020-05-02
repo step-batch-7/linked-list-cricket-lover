@@ -131,6 +131,33 @@ Status remove_from_end(List_ptr list)
   return Success;
 }
 
+Status remove_at(List_ptr list, int position)
+{
+  if (position > list->count || position < 0)
+  {
+    return Failure;
+  }
+  if (position == 0)
+  {
+    return remove_from_start(list);
+  }
+  if (position == list->count)
+  {
+    return remove_from_end(list);
+  }
+  Node *p_walk = list->head;
+  Node *temp = p_walk->next;
+  for (int i = 1; i < position; i++)
+  {
+    p_walk = p_walk->next;
+    Node *temp = p_walk->next;
+  }
+  p_walk->next = p_walk->next->next;
+  free(temp);
+  list->count--;
+  return Success;
+}
+
 List_ptr create_list()
 {
   List_ptr new_list = malloc(sizeof(List));
