@@ -40,6 +40,11 @@ Status add_to_end(List_ptr list, int value)
 Status add_to_start(List_ptr list, int value)
 {
   Node_ptr new_node = create_node(value, list->head);
+  if (list->head == NULL)
+  {
+    list->last = new_node;
+  }
+
   list->head = new_node;
   list->count++;
   return Success;
@@ -91,6 +96,11 @@ Status add_unique(List_ptr list, int value)
 
 Status remove_from_start(List_ptr list)
 {
+  if (list->count == 0)
+  {
+    return Failure;
+  }
+
   Node_ptr temp = list->head;
   list->head = list->head->next;
   list->count--;
