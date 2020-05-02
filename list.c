@@ -4,7 +4,7 @@
 
 void display_list(List_ptr list)
 {
-  Node *p_walk = list->head;
+  Node_ptr p_walk = list->head;
   while (p_walk != NULL)
   {
     printf("value is %d\n", p_walk->value);
@@ -65,7 +65,7 @@ Status insert_at(List_ptr list, int value, int position)
     return add_to_end(list, value);
   }
 
-  Node *p_walk = list->head;
+  Node_ptr p_walk = list->head;
   for (int i = 1; i < position; i++)
   {
     if (p_walk->next != NULL)
@@ -114,13 +114,17 @@ Status remove_from_end(List_ptr list)
   {
     return Failure;
   }
-  Node_ptr temp = list->last;
-  Node_ptr p_walk = list->head;
-  while (p_walk->next != temp)
+  if (list->count == 1)
   {
+    return remove_from_start(list);
+  }
+  Node_ptr temp = NULL;
+  Node_ptr p_walk = list->head;
+  while (p_walk != list->last)
+  {
+    temp = p_walk;
     p_walk = p_walk->next;
   }
-  list->last = p_walk;
   list->last->next = NULL;
   list->count--;
   free(temp);
