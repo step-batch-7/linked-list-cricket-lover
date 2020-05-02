@@ -108,6 +108,25 @@ Status remove_from_start(List_ptr list)
   return Success;
 }
 
+Status remove_from_end(List_ptr list)
+{
+  if (list->count == 0)
+  {
+    return Failure;
+  }
+  Node_ptr temp = list->last;
+  Node_ptr p_walk = list->head;
+  while (p_walk->next != temp)
+  {
+    p_walk = p_walk->next;
+  }
+  list->last = p_walk;
+  list->last->next = NULL;
+  list->count--;
+  free(temp);
+  return Success;
+}
+
 List_ptr create_list()
 {
   List_ptr new_list = malloc(sizeof(List));

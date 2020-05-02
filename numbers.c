@@ -68,6 +68,9 @@ void perform_required_operation(List_ptr list, char user_choice)
   case 'e':
     status = remove_from_start(list);
     break;
+  case 'f':
+    status = remove_from_end(list);
+    break;
   default:
     break;
   }
