@@ -22,6 +22,12 @@ typedef struct
   int count;
 } List;
 
+typedef struct
+{
+  Node_ptr prev;
+  Node_ptr current;
+} Prev_Current_Pair;
+
 typedef List *List_ptr;
 typedef char *Char_ptr;
 typedef int *Int_ptr;

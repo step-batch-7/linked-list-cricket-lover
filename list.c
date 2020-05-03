@@ -4,11 +4,12 @@
 
 void display_list(List_ptr list)
 {
-  Node_ptr current = list->head;
-  while (current != NULL)
+  Prev_Current_Pair node_pair;
+  node_pair.current = list->head;
+  while (node_pair.current != NULL)
   {
-    printf("value is %d\n", current->value);
-    current = current->next;
+    printf("value is %d\n", node_pair.current->value);
+    node_pair.current = node_pair.current->next;
   }
   printf("total number of nodes are %d\n", list->count);
 }
@@ -77,33 +78,35 @@ Status insert_at(List_ptr list, int value, int position)
     return add_to_end(list, value);
   }
 
-  Node_ptr current = list->head;
+  Prev_Current_Pair node_pair;
+  node_pair.current = list->head;
   for (int i = 1; i < position; i++)
   {
-    if (current->next != NULL)
+    if (node_pair.current->next != NULL)
     {
-      current = current->next;
+      node_pair.current = node_pair.current->next;
     }
   }
 
-  Node_ptr new_node = create_node(value, current->next);
+  Node_ptr new_node = create_node(value, node_pair.current->next);
   if (new_node == NULL)
   {
     return Failure;
   }
-  current->next = new_node;
+  node_pair.current->next = new_node;
   list->count++;
   return Success;
 }
 
 Status add_unique(List_ptr list, int value)
 {
-  Node_ptr current = list->head;
-  while (current != NULL && current->value != value)
+  Prev_Current_Pair node_pair;
+  node_pair.current = list->head;
+  while (node_pair.current != NULL && node_pair.current->value != value)
   {
-    current = current->next;
+    node_pair.current = node_pair.current->next;
   }
-  if (current == NULL)
+  if (node_pair.current == NULL)
   {
     return add_to_end(list, value);
   }
@@ -121,10 +124,11 @@ Status remove_from_start(List_ptr list)
     list->last = NULL;
   }
 
-  Node_ptr prev = list->head;
+  Prev_Current_Pair node_pair;
+  node_pair.prev = list->head;
   list->head = list->head->next;
   list->count--;
-  free(prev);
+  free(node_pair.prev);
   return Success;
 }
 
@@ -138,17 +142,18 @@ Status remove_from_end(List_ptr list)
   {
     return remove_from_start(list);
   }
-  Node_ptr prev = NULL;
-  Node_ptr current = list->head;
-  while (current != list->last)
+  Prev_Current_Pair node_pair;
+  node_pair.prev = NULL;
+  node_pair.current = list->head;
+  while (node_pair.current != list->last)
   {
-    prev = current;
-    current = current->next;
+    node_pair.prev = node_pair.current;
+    node_pair.current = node_pair.current->next;
   }
-  list->last = prev;
+  list->last = node_pair.prev;
   list->last->next = NULL;
   list->count--;
-  free(current);
+  free(node_pair.current);
   return Success;
 }
 
@@ -166,29 +171,31 @@ Status remove_at(List_ptr list, int position)
   {
     return remove_from_end(list);
   }
-  Node_ptr prev = NULL;
-  Node_ptr current = list->head;
+  Prev_Current_Pair node_pair;
+  node_pair.prev = NULL;
+  node_pair.current = list->head;
   for (int i = 0; i < position; i++)
   {
-    prev = current;
-    current = current->next;
+    node_pair.prev = node_pair.current;
+    node_pair.current = node_pair.current->next;
   }
-  prev->next = current->next;
-  free(current);
+  node_pair.prev->next = node_pair.current->next;
+  free(node_pair.current);
   list->count--;
   return Success;
 }
 
 Status remove_first_occurrence(List_ptr list, int value)
 {
-  Node_ptr current = list->head;
+  Prev_Current_Pair node_pair;
+  node_pair.current = list->head;
   int position = 0;
-  while (current != NULL && current->value != value)
+  while (node_pair.current != NULL && node_pair.current->value != value)
   {
-    current = current->next;
+    node_pair.current = node_pair.current->next;
     position++;
   }
-  if (current == NULL)
+  if (node_pair.current == NULL)
   {
     return Failure;
   }
@@ -198,22 +205,23 @@ Status remove_first_occurrence(List_ptr list, int value)
 
 Status remove_all_occurrences(List_ptr list, int value)
 {
-  Node_ptr prev = NULL;
-  Node_ptr current = list->head;
+  Prev_Current_Pair node_pair;
+  node_pair.prev = NULL;
+  node_pair.current = list->head;
   int position = 0;
   Status status = Success;
-  while (current != NULL)
+  while (node_pair.current != NULL)
   {
-    if (current->value == value)
+    if (node_pair.current->value == value)
     {
       status = remove_at(list, position);
     }
     else
     {
-      prev = current;
+      node_pair.prev = node_pair.current;
       position++;
     }
-    current = current->next;
+    node_pair.current = node_pair.current->next;
   }
 
   return status;
