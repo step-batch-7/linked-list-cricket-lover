@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "list.h"
 
-void display_list(List_ptr list)
+void display(List_ptr list)
 {
   Prev_Current_Pair node_pair;
   node_pair.current = list->head;

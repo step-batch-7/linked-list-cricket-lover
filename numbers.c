@@ -90,6 +90,9 @@ void perform_required_operation(List_ptr list, char user_choice)
     number = read_input_values(&number);
     status = is_number_present(list, number);
     break;
+  case 'l':
+    display(list);
+    break;
   default:
     break;
   }
@@ -103,7 +106,6 @@ int main(void)
     printf("Memory not alloted!\n");
     return 1;
   }
-
   char user_choice;
   do
   {
@@ -111,6 +113,6 @@ int main(void)
     user_choice = read_user_choice(&user_choice);
     perform_required_operation(list, user_choice);
   } while (user_choice != 'm');
-  display_list(list);
+  destroy_list(list);
   return 0;
 }
