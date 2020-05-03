@@ -227,7 +227,7 @@ Status remove_all_occurrences(List_ptr list, int value)
   return status;
 }
 
-Status clear_list(List_ptr list) // Removes all elements in the list
+Status clear_list(List_ptr list)
 {
   Status status = Failure;
   while (list->count > 0)
@@ -235,6 +235,23 @@ Status clear_list(List_ptr list) // Removes all elements in the list
     status = remove_from_end(list);
   }
   return status;
+}
+
+Status is_number_present(List_ptr list, int value)
+{
+  Prev_Current_Pair node_pair;
+  node_pair.current = list->head;
+  while (node_pair.current != NULL && node_pair.current->value != value)
+  {
+    node_pair.current = node_pair.current->next;
+  }
+  return node_pair.current == NULL ? Failure : Success;
+}
+
+void destroy_list(List_ptr list)
+{
+  clear_list(list);
+  free(list);
 }
 
 List_ptr create_list()

@@ -86,6 +86,10 @@ void perform_required_operation(List_ptr list, char user_choice)
   case 'j':
     status = clear_list(list);
     break;
+  case 'k':
+    number = read_input_values(&number);
+    status = is_number_present(list, number);
+    break;
   default:
     break;
   }
