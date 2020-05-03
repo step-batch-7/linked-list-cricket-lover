@@ -79,6 +79,10 @@ void perform_required_operation(List_ptr list, char user_choice)
     number = read_input_values(&number);
     status = remove_first_occurrence(list, number);
     break;
+  case 'i':
+    number = read_input_values(&number);
+    status = remove_all_occurrences(list, number);
+    break;
   default:
     break;
   }
@@ -87,6 +91,12 @@ void perform_required_operation(List_ptr list, char user_choice)
 int main(void)
 {
   List_ptr list = create_list();
+  if (list == NULL)
+  {
+    printf("Memory not alloted!\n");
+    return 1;
+  }
+
   char user_choice;
   do
   {
@@ -94,6 +104,5 @@ int main(void)
     user_choice = read_user_choice(&user_choice);
     perform_required_operation(list, user_choice);
   } while (user_choice != 'm');
-  display_list(list);
   return 0;
 }

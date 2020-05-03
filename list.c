@@ -16,6 +16,10 @@ void display_list(List_ptr list)
 Node_ptr create_node(int value, Node_ptr next_reference)
 {
   Node_ptr new_node = malloc(sizeof(Node));
+  if (new_node == NULL)
+  {
+    return new_node;
+  }
   new_node->value = value;
   new_node->next = next_reference;
   return new_node;
@@ -24,6 +28,10 @@ Node_ptr create_node(int value, Node_ptr next_reference)
 Status add_to_end(List_ptr list, int value)
 {
   Node_ptr new_node = create_node(value, NULL);
+  if (new_node == NULL)
+  {
+    return Failure;
+  }
   if (list->head == NULL)
   {
     list->head = new_node;
@@ -40,6 +48,10 @@ Status add_to_end(List_ptr list, int value)
 Status add_to_start(List_ptr list, int value)
 {
   Node_ptr new_node = create_node(value, list->head);
+  if (new_node == NULL)
+  {
+    return Failure;
+  }
   if (list->head == NULL)
   {
     list->last = new_node;
@@ -75,6 +87,10 @@ Status insert_at(List_ptr list, int value, int position)
   }
 
   Node_ptr new_node = create_node(value, current->next);
+  if (new_node == NULL)
+  {
+    return Failure;
+  }
   current->next = new_node;
   list->count++;
   return Success;
@@ -206,6 +222,10 @@ Status remove_all_occurrences(List_ptr list, int value)
 List_ptr create_list()
 {
   List_ptr new_list = malloc(sizeof(List));
+  if (new_list == NULL)
+  {
+    return new_list;
+  }
   new_list->head = NULL;
   new_list->last = NULL;
   new_list->count = 0;
