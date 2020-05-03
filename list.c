@@ -4,11 +4,11 @@
 
 void display_list(List_ptr list)
 {
-  Node_ptr p_walk = list->head;
-  while (p_walk != NULL)
+  Node_ptr current = list->head;
+  while (current != NULL)
   {
-    printf("value is %d\n", p_walk->value);
-    p_walk = p_walk->next;
+    printf("value is %d\n", current->value);
+    current = current->next;
   }
   printf("total number of nodes are %d\n", list->count);
 }
@@ -65,29 +65,29 @@ Status insert_at(List_ptr list, int value, int position)
     return add_to_end(list, value);
   }
 
-  Node_ptr p_walk = list->head;
+  Node_ptr current = list->head;
   for (int i = 1; i < position; i++)
   {
-    if (p_walk->next != NULL)
+    if (current->next != NULL)
     {
-      p_walk = p_walk->next;
+      current = current->next;
     }
   }
 
-  Node_ptr new_node = create_node(value, p_walk->next);
-  p_walk->next = new_node;
+  Node_ptr new_node = create_node(value, current->next);
+  current->next = new_node;
   list->count++;
   return Success;
 }
 
 Status add_unique(List_ptr list, int value)
 {
-  Node_ptr p_walk = list->head;
-  while (p_walk != NULL && p_walk->value != value)
+  Node_ptr current = list->head;
+  while (current != NULL && current->value != value)
   {
-    p_walk = p_walk->next;
+    current = current->next;
   }
-  if (p_walk == NULL)
+  if (current == NULL)
   {
     return add_to_end(list, value);
   }
@@ -105,10 +105,10 @@ Status remove_from_start(List_ptr list)
     list->last = NULL;
   }
 
-  Node_ptr temp = list->head;
+  Node_ptr prev = list->head;
   list->head = list->head->next;
   list->count--;
-  free(temp);
+  free(prev);
   return Success;
 }
 
@@ -122,17 +122,17 @@ Status remove_from_end(List_ptr list)
   {
     return remove_from_start(list);
   }
-  Node_ptr temp = NULL;
-  Node_ptr p_walk = list->head;
-  while (p_walk != list->last)
+  Node_ptr prev = NULL;
+  Node_ptr current = list->head;
+  while (current != list->last)
   {
-    temp = p_walk;
-    p_walk = p_walk->next;
+    prev = current;
+    current = current->next;
   }
-  list->last = temp;
+  list->last = prev;
   list->last->next = NULL;
   list->count--;
-  free(p_walk);
+  free(current);
   return Success;
 }
 
@@ -150,29 +150,29 @@ Status remove_at(List_ptr list, int position)
   {
     return remove_from_end(list);
   }
-  Node_ptr p_walk = list->head;
-  Node_ptr temp = p_walk->next;
-  for (int i = 1; i < position; i++)
+  Node_ptr prev = NULL;
+  Node_ptr current = list->head;
+  for (int i = 0; i < position; i++)
   {
-    p_walk = p_walk->next;
-    temp = p_walk->next;
+    prev = current;
+    current = current->next;
   }
-  p_walk->next = p_walk->next->next;
-  free(temp);
+  prev->next = current->next;
+  free(current);
   list->count--;
   return Success;
 }
 
 Status remove_first_occurrence(List_ptr list, int value)
 {
-  Node_ptr p_walk = list->head;
+  Node_ptr current = list->head;
   int position = 0;
-  while (p_walk != NULL && p_walk->value != value)
+  while (current != NULL && current->value != value)
   {
-    p_walk = p_walk->next;
+    current = current->next;
     position++;
   }
-  if (p_walk == NULL)
+  if (current == NULL)
   {
     return Failure;
   }
@@ -182,25 +182,25 @@ Status remove_first_occurrence(List_ptr list, int value)
 
 Status remove_all_occurrences(List_ptr list, int value)
 {
-  Node_ptr temp = NULL;
-  Node_ptr p_walk = list->head;
+  Node_ptr prev = NULL;
+  Node_ptr current = list->head;
   int position = 0;
-  Status status;
-  while (p_walk != NULL)
+  Status status = Success;
+  while (current != NULL)
   {
-    if (p_walk->value == value)
+    if (current->value == value)
     {
       status = remove_at(list, position);
     }
     else
     {
-      temp = p_walk;
+      prev = current;
       position++;
     }
-    p_walk = temp->next;
+    current = current->next;
   }
 
-  return Success;
+  return status;
 }
 
 List_ptr create_list()
