@@ -100,6 +100,10 @@ Status remove_from_start(List_ptr list)
   {
     return Failure;
   }
+  if (list->count == 1)
+  {
+    list->last = NULL;
+  }
 
   Node_ptr temp = list->head;
   list->head = list->head->next;
@@ -125,9 +129,10 @@ Status remove_from_end(List_ptr list)
     temp = p_walk;
     p_walk = p_walk->next;
   }
+  list->last = temp;
   list->last->next = NULL;
   list->count--;
-  free(temp);
+  free(p_walk);
   return Success;
 }
 
@@ -141,16 +146,16 @@ Status remove_at(List_ptr list, int position)
   {
     return remove_from_start(list);
   }
-  if (position == list->count)
+  if (position == list->count - 1)
   {
     return remove_from_end(list);
   }
-  Node *p_walk = list->head;
-  Node *temp = p_walk->next;
+  Node_ptr p_walk = list->head;
+  Node_ptr temp = p_walk->next;
   for (int i = 1; i < position; i++)
   {
     p_walk = p_walk->next;
-    Node *temp = p_walk->next;
+    temp = p_walk->next;
   }
   p_walk->next = p_walk->next->next;
   free(temp);
