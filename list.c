@@ -180,6 +180,29 @@ Status remove_first_occurrence(List_ptr list, int value)
   return remove_at(list, position);
 }
 
+Status remove_all_occurrences(List_ptr list, int value)
+{
+  Node_ptr temp = NULL;
+  Node_ptr p_walk = list->head;
+  int position = 0;
+  Status status;
+  while (p_walk != NULL)
+  {
+    if (p_walk->value == value)
+    {
+      status = remove_at(list, position);
+    }
+    else
+    {
+      temp = p_walk;
+      position++;
+    }
+    p_walk = temp->next;
+  }
+
+  return Success;
+}
+
 List_ptr create_list()
 {
   List_ptr new_list = malloc(sizeof(List));
