@@ -83,6 +83,9 @@ void perform_required_operation(List_ptr list, char user_choice)
     number = read_input_values(&number);
     status = remove_all_occurrences(list, number);
     break;
+  case 'j':
+    status = clear_list(list);
+    break;
   default:
     break;
   }
@@ -104,5 +107,6 @@ int main(void)
     user_choice = read_user_choice(&user_choice);
     perform_required_operation(list, user_choice);
   } while (user_choice != 'm');
+  display_list(list);
   return 0;
 }

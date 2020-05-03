@@ -209,7 +209,7 @@ Status remove_all_occurrences(List_ptr list, int value)
   node_pair.prev = NULL;
   node_pair.current = list->head;
   int position = 0;
-  Status status = Success;
+  Status status = Failure;
   while (node_pair.current != NULL)
   {
     if (node_pair.current->value == value)
@@ -224,6 +224,16 @@ Status remove_all_occurrences(List_ptr list, int value)
     node_pair.current = node_pair.current->next;
   }
 
+  return status;
+}
+
+Status clear_list(List_ptr list) // Removes all elements in the list
+{
+  Status status = Failure;
+  while (list->count > 0)
+  {
+    status = remove_from_end(list);
+  }
   return status;
 }
 
