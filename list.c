@@ -209,12 +209,12 @@ Status remove_all_occurrences(List_ptr list, int value)
   node_pair.prev = NULL;
   node_pair.current = list->head;
   int position = 0;
-  Status status = Failure;
+  Status has_removed = Failure;
   while (node_pair.current != NULL)
   {
     if (node_pair.current->value == value)
     {
-      status = remove_at(list, position);
+      has_removed = remove_at(list, position);
     }
     else
     {
@@ -224,17 +224,17 @@ Status remove_all_occurrences(List_ptr list, int value)
     node_pair.current = node_pair.current->next;
   }
 
-  return status;
+  return has_removed;
 }
 
 Status clear_list(List_ptr list)
 {
-  Status status = Failure;
+  Status has_cleared = Failure;
   while (list->count > 0)
   {
-    status = remove_from_end(list);
+    has_cleared = remove_from_end(list);
   }
-  return status;
+  return has_cleared;
 }
 
 Status is_number_present(List_ptr list, int value)

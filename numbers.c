@@ -96,6 +96,8 @@ void perform_required_operation(List_ptr list, char user_choice)
   default:
     break;
   }
+  char *message = status == 0 ? "failed" : "succeeded";
+  printf("Operation %s\n", message);
 }
 
 int main(void)
