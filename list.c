@@ -110,7 +110,7 @@ Status add_unique(List_ptr list, int value)
   {
     return add_to_end(list, value);
   }
-  return Success;
+  return Failure;
 }
 
 Status remove_from_start(List_ptr list)
