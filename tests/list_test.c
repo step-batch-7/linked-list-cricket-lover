@@ -31,11 +31,17 @@ Status assert_lists(Int_ptr expected, int length, List_ptr actual)
 
 void test_add_to_end(void)
 {
+  printf("#add_to_end\n");
   List_ptr list = create_list();
-  int expected[1] = {2};
+  int expected[2] = {2};
   add_to_end(list, 2);
   Status result = assert_lists(expected, 1, list);
-  display_test_result(result, "tests of add_to_end");
+  display_test_result(result, "adds one element to the end of the list, when the list is empty");
+
+  expected[1] = 3;
+  add_to_end(list, 3);
+  result = assert_lists(expected, 2, list);
+  display_test_result(result, "adds one element to the end of the list, when the list is not empty");
 }
 
 void run_tests(void)
