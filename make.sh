@@ -1,9 +1,10 @@
 #! /bin/bash
 
-excecutable=$1
+path=$1
+excecutable=$2
 mkdir -p bin
 
 rm -rf *.o
-gcc -c *.c
+gcc -c $path*.c
 gcc -o ./bin/$excecutable *.o && ./bin/$excecutable
 rm -rf *.o
