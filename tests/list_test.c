@@ -26,7 +26,7 @@ Status assert_lists(Int_ptr expected, int length, List_ptr actual)
     p_walk = p_walk->next;
     index++;
   }
-  return Success;
+  return p_walk == NULL ? Success : Failure;
 }
 
 void test_add_to_end(void)
@@ -44,10 +44,27 @@ void test_add_to_end(void)
   display_test_result(result, "adds one element to the end of the list, when the list is not empty");
 }
 
+void test_add_to_start(void)
+{
+  printf("#add_to_start\n");
+  List_ptr list = create_list();
+  int expected[2] = {2};
+  add_to_start(list, 2);
+  Status result = assert_lists(expected, 1, list);
+  display_test_result(result, "adds one element to the start of the list, when the list is empty");
+
+  expected[0] = 3;
+  expected[1] = 2;
+  add_to_start(list, 3);
+  result = assert_lists(expected, 2, list);
+  display_test_result(result, "adds one element to the start of the list, when the list is not empty");
+}
+
 void run_tests(void)
 {
   printf("running tests......\n\n");
   test_add_to_end();
+  test_add_to_start();
   printf("\n......finished tests\n");
 }
 
