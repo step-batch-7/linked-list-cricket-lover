@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../list.c"
+#include "../list.h"
 
 void assert_equal(Status expected, Status actual, Char_ptr message)
 {
