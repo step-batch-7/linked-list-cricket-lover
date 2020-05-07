@@ -1,33 +1,6 @@
 #include <stdio.h>
 #include "../list.h"
-
-void display_test_result(Status actual, Char_ptr message)
-{
-  if (actual == Success)
-  {
-    printf("✓ %s is successfully done\n", message);
-  }
-  else
-  {
-    printf("✗ %s is failed\n", message);
-  }
-}
-
-Status assert_lists(Int_ptr expected, int length, List_ptr actual)
-{
-  if (actual->count != length)
-  {
-    return Failure;
-  }
-  int index = 0;
-  Node_ptr p_walk = actual->head;
-  while (p_walk != NULL && p_walk->value == expected[index])
-  {
-    p_walk = p_walk->next;
-    index++;
-  }
-  return p_walk == NULL ? Success : Failure;
-}
+#include "assert.h"
 
 void test_add_to_end(void)
 {
@@ -60,11 +33,38 @@ void test_add_to_start(void)
   display_test_result(result, "adds one element to the start of the list, when the list is not empty");
 }
 
+void insert_at_zero(List_ptr list, Int_ptr expected)
+{
+  insert_at(list, 2, 1);
+  Status result = assert_lists(expected, 0, list);
+  display_test_result(result, "should not insert at any position other than zero when the list is empty");
+
+  expected[0] = 2;
+  insert_at(list, 2, 0);
+  result = assert_lists(expected, 1, list);
+  display_test_result(result, "inserts one element to the start of the list, when the list is empty");
+
+  expected[0] = 3;
+  expected[1] = 2;
+  insert_at(list, 3, 0);
+  result = assert_lists(expected, 2, list);
+  display_test_result(result, "inserts one element to the start of the list, when the list is not empty");
+}
+
+void test_insert_at(void)
+{
+  printf("#insert_at\n");
+  List_ptr list = create_list();
+  int expected[4] = {};
+  insert_at_zero(list, expected);
+}
+
 void run_tests(void)
 {
   printf("running tests......\n\n");
   test_add_to_end();
   test_add_to_start();
+  test_insert_at();
   printf("\n......finished tests\n");
 }
 
