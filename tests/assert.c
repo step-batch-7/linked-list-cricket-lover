@@ -4,14 +4,8 @@
 
 void display_test_result(Status actual, Char_ptr message)
 {
-  if (actual == Success)
-  {
-    printf("✓ %s\n", message);
-  }
-  else
-  {
-    printf("✗ %s\n", message);
-  }
+  Char_ptr symbol = actual == Success ? "✓" : "✗";
+  printf("%s %s\n", symbol, message);
 }
 
 Status assert_lists(Int_ptr expected, int length, List_ptr actual)

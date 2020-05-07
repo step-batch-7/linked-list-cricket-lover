@@ -94,7 +94,7 @@ void test_add_unique(void)
   add_unique(list, 2);
   Status result = assert_lists(expected, 1, list);
   display_test_result(result, "should add any given number when the list is empty");
-  
+
   expected[1] = 3;
   add_unique(list, 3);
   result = assert_lists(expected, 2, list);
@@ -106,6 +106,28 @@ void test_add_unique(void)
   display_test_result(result, "should not add when the given number is present in the list");
 }
 
+void test_remove_from_start(void)
+{
+  printf("#remove_from_start\n");
+  List_ptr list = create_list();
+  int expected[4] = {};
+  remove_from_start(list);
+  Status result = assert_lists(expected, 0, list);
+  display_test_result(result, "should not remove anything when the list is empty");
+
+  add_to_start(list, 2);
+  remove_from_start(list);
+  result = assert_lists(expected, 0, list);
+  display_test_result(result, "should remove first item when the list has only one item");
+
+  insert_at(list, 2, 0);
+  insert_at(list, 3, 1);
+  remove_from_start(list);
+  expected[0] = 3;
+  result = assert_lists(expected, 1, list);
+  display_test_result(result, "should remove first item from the list");
+}
+
 void run_tests(void)
 {
   printf("running tests......\n\n");
@@ -113,6 +135,7 @@ void run_tests(void)
   test_add_to_start();
   test_insert_at();
   test_add_unique();
+  test_remove_from_start();
   printf("\n......finished tests\n");
 }
 
