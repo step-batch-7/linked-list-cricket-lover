@@ -15,6 +15,7 @@ void test_add_to_end(void)
   add_to_end(list, 3);
   result = assert_lists(expected, 2, list);
   display_test_result(result, "should add one element to the end of the list, when the list is not empty");
+  destroy_list(list);
 }
 
 void test_add_to_start(void)
@@ -31,6 +32,7 @@ void test_add_to_start(void)
   add_to_start(list, 3);
   result = assert_lists(expected, 2, list);
   display_test_result(result, "should add one element to the start of the list, when the list is not empty");
+  destroy_list(list);
 }
 
 void insert_at_start(List_ptr list, Int_ptr expected)
@@ -104,6 +106,7 @@ void test_add_unique(void)
   add_unique(list, 2);
   result = assert_lists(expected, 2, list);
   display_test_result(result, "should not add when the given number is present in the list");
+  destroy_list(list);
 }
 
 void test_remove_from_start(void)
@@ -126,6 +129,7 @@ void test_remove_from_start(void)
   expected[0] = 3;
   result = assert_lists(expected, 1, list);
   display_test_result(result, "should remove first item from the list");
+  destroy_list(list);
 }
 
 void run_tests(void)
