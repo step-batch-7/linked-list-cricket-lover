@@ -6,11 +6,11 @@ void display_test_result(Status actual, Char_ptr message)
 {
   if (actual == Success)
   {
-    printf("✓ %s is successfully done\n", message);
+    printf("✓ %s\n", message);
   }
   else
   {
-    printf("✗ %s is failed\n", message);
+    printf("✗ %s\n", message);
   }
 }
 
